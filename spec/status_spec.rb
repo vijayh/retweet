@@ -2,6 +2,7 @@ require "#{File.dirname(__FILE__)}/spec_helper"
 
 describe 'status' do
   before(:each) do
+    Status.destroy_all
     @status = Status.new(valid_attributes)
   end
 
@@ -71,13 +72,13 @@ describe 'status' do
     end
 
     specify 'should retrieve remote data' do
-      Status.should_receive(:first).with(:twitter_id => 1002).and_return(false)
+      Status.should_receive(:find_by_twitter_id).with(1002).and_return(false)
       Status.should_receive(:create_from_twitter).with(@status_data).and_return(true)
       Status.update
     end
 
     specify 'should not save update if status has already been recorded' do
-      Status.should_receive(:first).with(:twitter_id => 1002).and_return(true)
+      Status.should_receive(:find_by_twitter_id).with(1002).and_return(true)
       Status.should_not_receive(:create_from_twitter)
       Status.update
     end

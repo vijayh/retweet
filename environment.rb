@@ -1,10 +1,10 @@
 require 'rubygems'
-require 'dm-core'
-require 'dm-validations'
-require 'dm-aggregates'
+
 require 'haml'
 require 'ostruct'
 require 'twitter'
+
+require 'activerecord'
 
 require 'sinatra' unless defined?(Sinatra)
 
@@ -13,11 +13,18 @@ configure do
                  :title           => 'Your Twitter App',       # title of application
                  :author          => 'zapnap',                 # your twitter user name for attribution
                  :url_base        => 'http://localhost:4567/', # base URL for your site
-                 :search_keywords => ['thundercats', 'snarf'], # search API keyword
+                 :search_keywords => ['fivesimplesteps', '#fivesimplesteps'], # search API keyword
                  :status_length   => 20                        # number of tweets to display
                )
-
-  DataMapper.setup(:default, "sqlite3:///#{File.expand_path(File.dirname(__FILE__))}/#{Sinatra::Base.environment}.db")
+  # setting up AR
+  ActiveRecord::Base.establish_connection(
+    :adapter => 'mysql',
+    :username => 'root',
+    :password => '',
+    :database => 'retweet_development',
+    :host => 'localhost',
+    :encoding => 'utf8'
+  )
 
   # load models
   $LOAD_PATH.unshift("#{File.dirname(__FILE__)}/lib")

@@ -14,16 +14,14 @@ else
 end
 
 namespace :db do
-  desc 'Auto-migrate the database (destroys data)'
+  desc "Migrate the database"
   task :migrate => :environment do
-    DataMapper.auto_migrate!
-  end
-
-  desc 'Auto-upgrade the database (preserves data)'
-  task :upgrade => :environment do
-    DataMapper.auto_upgrade!
+    ActiveRecord::Base.logger = Logger.new(STDOUT)
+    ActiveRecord::Migration.verbose = true
+    ActiveRecord::Migrator.migrate("db/migrate")
   end
 end
+
 
 namespace :twitter do
   desc 'Update the local status cache'
@@ -45,3 +43,6 @@ end
 task :environment do
   require 'environment'
 end
+
+
+

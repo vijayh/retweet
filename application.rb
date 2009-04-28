@@ -32,8 +32,12 @@ end
 
 # root page
 get '/' do 
-  @statuses = Status.random(SiteConfig.status_length, 
-                            :order => [:created_at.desc], 
-                            :limit => SiteConfig.status_length * 3)
+  @statuses = []
+  (1..SiteConfig.status_length).each do |i|
+    @statuses << Status.find(:first, :offset => rand(Status.count))
+  end
+  
+#  @statuses = Status.random(SiteConfig.status_length, 
+#                            :limit => SiteConfig.status_length * 3)
   haml :main
 end
