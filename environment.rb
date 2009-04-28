@@ -13,7 +13,7 @@ configure do
                  :title           => 'Your Twitter App',       # title of application
                  :author          => 'zapnap',                 # your twitter user name for attribution
                  :url_base        => 'http://localhost:4567/', # base URL for your site
-                 :search_keywords => ['fivesimplesteps', '#fivesimplesteps'], # search API keyword
+                 :search_keywords => ['fubar phrase', 'fubar'], # search API keyword
                  :status_length   => 20                        # number of tweets to display
                )
   # setting up AR
