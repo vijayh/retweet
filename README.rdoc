@@ -1,3 +1,7 @@
+= Active Record Support
+This is a fork of the Retweet application template by zapnap.
+I have changed it from using DataMapper to ActiveRecord, as I wanted to have a play with it today, but there appears to be an issue with extlib/mash conflicts when using the original DM version.
+
 = Retweet: A Twitter Application Template
 
 A base application template for building simple Twitter web apps with Sinatra and DataMapper. If you just want to build a simple keyword-based aggregator (such as http://tweetdreams.org), all you need to do is edit <tt>environment.rb</tt> to set the name of your app and the API search keyword(s), edit the CSS, and go.
