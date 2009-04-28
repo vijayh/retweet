@@ -33,7 +33,8 @@ end
 # root page
 get '/' do 
   @statuses = []
-  # this is messy, but unfortunately AR doesn't appear to have a random method
+  # this is messy, but unfortunately AR doesn't appear to have a random find method
+  # TODO: this needs to be refactored into the random method on Status
   (1..SiteConfig.status_length).each do |i|
     @statuses << Status.find(:first, :offset => rand(Status.count))
   end
