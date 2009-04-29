@@ -13,16 +13,16 @@ describe 'main application' do
   end
 
   specify "should show the default index page" do
-    Status.should_receive(:find).at_least(1).times.and_return(@status)
+    Status.should_receive(:random).and_return([@status])
     get '/'
     last_response.should be_ok
     last_response.should have_tag('title', /#{SiteConfig.title}/)
   end
 
   specify 'should show the most recent statuses' do
-    Status.should_receive(:find).at_least(1).times.and_return(@status)
+    Status.should_receive(:random).and_return([@status])
     get '/'
     last_response.should be_ok
-    last_response.body.should have_tag('li', /#{@status.text}/, :count => 20)
+    last_response.body.should have_tag('li', /#{@status.text}/, :count => 1)
   end
 end

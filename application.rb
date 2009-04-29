@@ -32,13 +32,9 @@ end
 
 # root page
 get '/' do 
-  @statuses = []
-  # this is messy, but unfortunately AR doesn't appear to have a random find method
-  # TODO: this needs to be refactored into the random method on Status
-  (1..SiteConfig.status_length).each do |i|
-    @statuses << Status.find(:first, :offset => rand(Status.count))
-  end
-  @statuses.sort!{|x,y| y.created_at <=> x.created_at }
+  @statuses = Status.random(SiteConfig.status_length,
+                            :order => ["created_at desc"],
+                            :limit => SiteConfig.status_length * 3)
   
   haml :main
 end

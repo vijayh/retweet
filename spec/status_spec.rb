@@ -59,10 +59,12 @@ describe 'status' do
   end
 
   specify 'should return random records' do
-    @statuses = [mock('Status 1'), mock('Status 2'), mock('Status 3')]
-    Status.should_receive(:all).with(:limit => 3).and_return(@statuses)
-    @statuses.should_receive(:randomize).and_return(@statuses.reverse)
-    Status.random(2, :limit => 3).should == @statuses.reverse.slice(0,2)
+    @status_one = mock('Status 1')
+    @status_two = mock('Status 2')
+    @statuses = [@status_one, @status_two]
+    length = 2
+    Status.should_receive(:find).and_return(@status_one, @status_two)
+    Status.random(length, :limit => 3).should == @statuses
   end
 
   describe 'when updating from Twitter' do

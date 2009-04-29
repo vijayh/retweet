@@ -23,7 +23,12 @@ class Status < ActiveRecord::Base
   # return an array of random records (support same options as +all+)
   # ex: Status.random(10, :created_at.gte => Time.now - 86400, :limit => 100)
   def self.random(length = 10, options = {})
-    self.all(options).randomize.slice(0, length)
+    arr = []
+    (1..length).each do |i|
+      arr << self.find(:first, :offset => rand(self.count), :order => options[:order])
+    end
+    puts "\n\n  " + arr.inspect + " \n\n"
+    return arr.first(options[:limit] || SiteConfig.status_length)
   end
 
   # create a new record from Twitter status data
