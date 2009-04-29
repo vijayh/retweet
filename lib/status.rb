@@ -21,7 +21,6 @@ class Status < ActiveRecord::Base
   validates_uniqueness_of :twitter_id, :message => "Twitter is already taken"
 
   # return an array of random records (support same options as +all+)
-  # ex: Status.random(10, :created_at.gte => Time.now - 86400, :limit => 100)
   def self.random(length = 10, options = {})
     arr = []
     (1..length).each do |i|
