@@ -27,7 +27,6 @@ class Status < ActiveRecord::Base
     (1..length).each do |i|
       arr << self.find(:first, :offset => rand(self.count), :order => options[:order])
     end
-    puts "\n\n  " + arr.inspect + " \n\n"
     return arr.first(options[:limit] || SiteConfig.status_length)
   end
 
